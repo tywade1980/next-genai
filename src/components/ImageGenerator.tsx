@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ImageGenerationOptions, ImageModificationOptions, ImageModifier } from '@/lib/imageGeneration';
-import { RefreshCw, Download, Settings, Wand2, Image as ImageIcon } from 'lucide-react';
+import { RefreshCw, Download, Settings, Wand2, Image as ImageIcon, Info } from 'lucide-react';
+import VarietyDemo from './VarietyDemo';
 
 interface GeneratedImage {
   url: string;
@@ -37,6 +38,7 @@ export default function ImageGenerator() {
     blur: 0
   });
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showVarietyDemo, setShowVarietyDemo] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -159,6 +161,14 @@ export default function ImageGenerator() {
             >
               <Wand2 className="w-5 h-5" />
               {isGenerating ? 'Generating...' : 'Generate Random'}
+            </button>
+
+            <button
+              onClick={() => setShowVarietyDemo(true)}
+              className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              <Info className="w-5 h-5" />
+              View Variety Options
             </button>
 
             <button
@@ -438,6 +448,11 @@ export default function ImageGenerator() {
           </div>
         )}
       </div>
+
+      {/* Variety Demo Modal */}
+      {showVarietyDemo && (
+        <VarietyDemo onClose={() => setShowVarietyDemo(false)} />
+      )}
     </div>
   );
 }
