@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Next Gen AI</string>
+    
+    <!-- Main Features -->
+    <string name="call_screen_title">Smart Call Screen</string>
+    <string name="dialer_title">AI Receptionist Dialer</string>
+    <string name="business_management_title">Construction Business Management</string>
+    
+    <!-- Call Screen Features -->
+    <string name="call_screening_enabled">Smart call screening enabled</string>
+    <string name="spam_detected">Potential spam call detected</string>
+    <string name="business_call">Business call identified</string>
+    <string name="personal_call">Personal call</string>
+    
+    <!-- Dialer Features -->
+    <string name="smart_dialing">Smart Dialing</string>
+    <string name="contact_suggestions">AI Contact Suggestions</string>
+    <string name="best_time_to_call">Best time to call: %s</string>
+    
+    <!-- AI Features -->
+    <string name="ai_transcription">AI Transcription</string>
+    <string name="call_summary">Call Summary</string>
+    <string name="action_items">Action Items</string>
+    <string name="follow_up_required">Follow-up required</string>
+    
+    <!-- CBMS Features -->
+    <string name="projects">Projects</string>
+    <string name="clients">Clients</string>
+    <string name="estimates">Estimates</string>
+    <string name="tasks">Tasks</string>
+    <string name="materials">Materials</string>
+    <string name="call_logs">Call Logs</string>
+    
+    <!-- Project Management -->
+    <string name="project_status_planning">Planning</string>
+    <string name="project_status_in_progress">In Progress</string>
+    <string name="project_status_on_hold">On Hold</string>
+    <string name="project_status_completed">Completed</string>
+    <string name="project_status_cancelled">Cancelled</string>
+    
+    <!-- Task Management -->
+    <string name="task_priority_low">Low</string>
+    <string name="task_priority_medium">Medium</string>
+    <string name="task_priority_high">High</string>
+    <string name="task_priority_urgent">Urgent</string>
+    
+    <!-- Permissions -->
+    <string name="permission_phone_required">Phone permission required for call screening</string>
+    <string name="permission_contacts_required">Contacts permission required for smart dialing</string>
+    <string name="permission_microphone_required">Microphone permission required for call transcription</string>
+    
+    <!-- Navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_calls">Calls</string>
+    <string name="nav_projects">Projects</string>
+    <string name="nav_clients">Clients</string>
+    <string name="nav_estimates">Estimates</string>
+    <string name="nav_tasks">Tasks</string>
+    <string name="nav_settings">Settings</string>
+    
+    <!-- Actions -->
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="call">Call</string>
+    <string name="message">Message</string>
+    <string name="email">Email</string>
+    
+    <!-- Error Messages -->
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_ai_service">AI service temporarily unavailable</string>
+    <string name="error_call_failed">Call failed to connect</string>
+    <string name="error_permission_denied">Permission denied</string>
+    
+    <!-- Success Messages -->
+    <string name="project_created">Project created successfully</string>
+    <string name="client_added">Client added successfully</string>
+    <string name="estimate_sent">Estimate sent to client</string>
+    <string name="task_completed">Task marked as completed</string>
+</resources>
