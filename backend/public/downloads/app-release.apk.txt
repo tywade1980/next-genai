@@ -1,0 +1,34 @@
+# Next GenAI Mobile APK - Demo File
+
+This is a placeholder for the actual Next GenAI Mobile APK file.
+
+In a real deployment, this would be the compiled Android application package containing:
+- React Native bundle with the mobile app code
+- Native Android components for call handling
+- AI model integrations for call screening
+- Real-time sync capabilities with the web application
+- Update checking and download functionality
+
+## Build Process
+
+The actual APK would be generated using:
+```bash
+cd mobile
+npx react-native run-android --variant=release
+```
+
+## Version Information
+- Version: 1.0.0
+- Build Date: 2025-01-09
+- Platform: Android
+- Size: ~15MB (estimated)
+
+## Features Included
+- Smart call screening with AI models
+- Real-time synchronization with web app
+- CBMS project management
+- Offline capability with sync on reconnection
+- Auto-update checking
+
+## Installation
+Users would download this APK and install it on their Android devices to access the mobile version of Next GenAI.
