@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Next GenAI</string>
+    <string name="webhook_agent">Webhook Agent</string>
+    <string name="call_screening">Call Screening</string>
+    <string name="ai_processing">AI Processing</string>
+    <string name="cbms_integration">CBMS Integration</string>
+    <string name="receptionist_dialer">Receptionist Dialer</string>
+    <string name="webhook_management">Webhook Management</string>
+    <string name="status_not_initialized">Status: Not Initialized</string>
+    <string name="status_initialized">Status: Initialized</string>
+    <string name="status_error">Status: Error</string>
+    <string name="initialize_webhooks">Initialize Webhook Agent</string>
+    <string name="manage_webhooks">Manage Webhooks</string>
+    <string name="refresh_status">Refresh Status</string>
+    <string name="cloud_dashboard">Cloud Dashboard</string>
+</resources>

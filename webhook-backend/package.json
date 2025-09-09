@@ -1,0 +1,28 @@
+{
+  "name": "nextgenai-webhook-backend",
+  "version": "1.0.0",
+  "description": "Webhook backend service for Next GenAI Android app",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "body-parser": "^1.20.2",
+    "uuid": "^9.0.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  },
+  "keywords": ["webhook", "android", "call-screening", "ai", "cbms"],
+  "author": "Next GenAI Team",
+  "license": "MIT"
+}
