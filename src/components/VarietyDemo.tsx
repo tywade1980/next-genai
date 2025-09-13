@@ -66,7 +66,7 @@ export default function VarietyDemo({ onClose }: VarietyDemoProps) {
             <h3 className="text-xl font-bold text-white mb-2">🚀 Endless Possibilities</h3>
             <p className="text-blue-100">
               With <strong>{totalCombinations.toLocaleString()}</strong> unique combinations possible, 
-              you&apos;ll never run out of construction-themed image ideas!
+              you'll never run out of construction-themed image ideas!
             </p>
           </div>
 
