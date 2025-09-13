@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Phone, Building, Brain, BarChart3, Users, AlertCircle, CheckCircle } from 'lucide-react';
+import { Phone, Building, Brain, BarChart3, Users, AlertCircle, CheckCircle, ImageIcon } from 'lucide-react';
 
 interface DashboardStats {
   activeProjects: number;
@@ -74,6 +74,9 @@ export default function Home() {
               <Link href="/ai-models" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                 AI Models
               </Link>
+              <Link href="/image-generator" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                Image Generator
+              </Link>
             </nav>
           </div>
         </div>
@@ -87,7 +90,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Construction AI</h2>
               <p className="text-gray-600 mb-6">
                 Comprehensive construction business management solution with smart call screening, 
-                AI-powered assistance, and integrated project management.
+                AI-powered assistance, AI image generation, and integrated project management.
               </p>
               
               {/* Quick Stats */}
@@ -134,7 +137,7 @@ export default function Home() {
               </div>
 
               {/* Quick Actions */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <Link href="/call-screen" className="block">
                   <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white hover:from-blue-600 hover:to-blue-700 transition-colors">
                     <Phone className="h-12 w-12 mb-4" />
@@ -156,6 +159,14 @@ export default function Home() {
                     <Brain className="h-12 w-12 mb-4" />
                     <h3 className="text-xl font-bold mb-2">AI Models</h3>
                     <p className="text-purple-100">Manage and configure AI models for construction assistance.</p>
+                  </div>
+                </Link>
+
+                <Link href="/image-generator" className="block">
+                  <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-6 text-white hover:from-orange-600 hover:to-orange-700 transition-colors">
+                    <ImageIcon className="h-12 w-12 mb-4" />
+                    <h3 className="text-xl font-bold mb-2">AI Image Generator</h3>
+                    <p className="text-orange-100">Generate endless variety of construction-themed images with AI.</p>
                   </div>
                 </Link>
               </div>
@@ -189,6 +200,11 @@ export default function Home() {
                   <span className="ml-3 text-sm text-gray-600">AI model updated: Construction Assistant v2.1</span>
                   <span className="ml-auto text-xs text-gray-400">2 days ago</span>
                 </div>
+                <div className="flex items-center">
+                  <ImageIcon className="h-5 w-5 text-orange-500" />
+                  <span className="ml-3 text-sm text-gray-600">Generated 15 construction images for project proposals</span>
+                  <span className="ml-auto text-xs text-gray-400">3 days ago</span>
+                </div>
               </div>
             </div>
           </div>
@@ -199,7 +215,7 @@ export default function Home() {
           <div className="bg-white overflow-hidden shadow rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">System Status</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
                   <span className="text-sm text-gray-600">AI Models: Online</span>
@@ -211,6 +227,10 @@ export default function Home() {
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
                   <span className="text-sm text-gray-600">Database: Connected</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                  <span className="text-sm text-gray-600">Image Generator: Ready</span>
                 </div>
               </div>
             </div>

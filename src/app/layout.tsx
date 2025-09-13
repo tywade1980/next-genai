@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Construction AI - Business Management Solution",
-  description: "Smart call screening, AI models, and comprehensive construction business management",
+  description: "Smart call screening, AI models, AI image generation, and comprehensive construction business management",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="font-sans antialiased">
         {children}
       </body>
     </html>
