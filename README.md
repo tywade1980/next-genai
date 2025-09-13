@@ -1,13 +1,18 @@
-# next-genai
-smart call screen and receptionist dialer, 3 ai models and cbms (construction business management solution)
+# Construction AI - Business Management Solution
 
-## AI Image Generation for Construction
+Smart call screen and receptionist dialer, 3 AI models, AI image generation, and CBMS (construction business management solution).
 
+## Features
+
+### AI Image Generation for Construction
 This application provides AI-powered image generation and modification specifically for construction-themed content with endless variety of ideas and styles.
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Business Management
+Comprehensive construction business management solution with smart call screening, AI-powered assistance, and integrated project management.
 
 ## Getting Started
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 First, run the development server:
 

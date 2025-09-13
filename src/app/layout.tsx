@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Construction AI Image Generator",
-  description: "AI-powered image generation and modification for construction-themed content with endless variety of ideas and styles.",
+  title: "Construction AI - Business Management Solution",
+  description: "Smart call screening, AI models, AI image generation, and comprehensive construction business management",
 };
 
 export default function RootLayout({
