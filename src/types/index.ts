@@ -154,7 +154,7 @@ export interface AIModel {
 }
 
 export type AIModelType = 'llm' | 'speech-to-text' | 'text-to-speech' | 'embedding' | 'classification' | 'translation';
-export type AIProvider = 'openai' | 'anthropic' | 'local' | 'huggingface' | 'google' | 'custom';
+export type AIProvider = 'openai' | 'anthropic' | 'local' | 'huggingface' | 'google' | 'openrouter' | 'custom';
 export type ModelStatus = 'active' | 'inactive' | 'downloading' | 'failed' | 'updating';
 
 // API Response types

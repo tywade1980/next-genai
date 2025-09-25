@@ -2,6 +2,7 @@ import { AIModel, AIModelType, AIProvider, ModelStatus } from '@/types';
 import { db } from './db';
 import { aiModels } from './schema';
 import { eq } from 'drizzle-orm';
+import { openRouterService } from './openrouter';
 
 export class AIModelManager {
   private static instance: AIModelManager;
@@ -198,7 +199,18 @@ export class AIModelManager {
       throw new Error('Model not loaded');
     }
 
-    const modelData = model as { type: string };
+    const modelData = model as { type: string; provider: string; modelId: string };
+    
+    // Handle OpenRouter models
+    if (modelData.provider === 'openrouter') {
+      try {
+        return await openRouterService.generateResponse(modelData.modelId, prompt, options);
+      } catch (error) {
+        console.error('OpenRouter request failed:', error);
+        // Fallback to mock response
+        return this.generateLLMResponse(model, prompt, options);
+      }
+    }
     
     // For demo purposes, return mock responses based on the model type
     switch (modelData.type) {
@@ -209,6 +221,16 @@ export class AIModelManager {
       default:
         throw new Error('Unsupported model type');
     }
+  }
+
+  // Update model status
+  async updateModelStatus(modelId: string, status: ModelStatus): Promise<void> {
+    await db.update(aiModels)
+      .set({ 
+        status,
+        updatedAt: new Date().toISOString()
+      })
+      .where(eq(aiModels.id, modelId));
   }
 
   private async generateLLMResponse(model: unknown, prompt: string, options?: Record<string, unknown>): Promise<string> {
@@ -234,13 +256,68 @@ export class AIModelManager {
     return "Hello, I'm interested in getting a quote for a kitchen renovation project. The space is about 200 square feet and I'm looking to update everything including cabinets, countertops, and appliances.";
   }
 
-  // Update model status
-  async updateModelStatus(modelId: string, status: ModelStatus): Promise<void> {
-    await db.update(aiModels)
-      .set({ 
-        status,
-        updatedAt: new Date().toISOString()
-      })
-      .where(eq(aiModels.id, modelId));
+  // Sync OpenRouter models
+  async syncOpenRouterModels(): Promise<number> {
+    if (!openRouterService.isConfigured()) {
+      console.log('OpenRouter API key not configured, skipping model sync');
+      return 0;
+    }
+
+    try {
+      const openRouterModels = await openRouterService.getAvailableModels();
+      let addedCount = 0;
+
+      for (const orModel of openRouterModels) {
+        const aiModelData = openRouterService.convertToAIModel(orModel);
+        
+        // Check if model already exists
+        const existingModel = await db.select()
+          .from(aiModels)
+          .where(eq(aiModels.modelId, aiModelData.modelId!))
+          .limit(1);
+
+        if (existingModel.length === 0) {
+          await this.addModel(aiModelData);
+          addedCount++;
+        }
+      }
+
+      console.log(`Synced ${addedCount} new OpenRouter models`);
+      return addedCount;
+    } catch (error) {
+      console.error('Error syncing OpenRouter models:', error);
+      throw error;
+    }
+  }
+
+  // Get available OpenRouter models (without adding to database)
+  async getOpenRouterModels(): Promise<AIModel[]> {
+    if (!openRouterService.isConfigured()) {
+      return [];
+    }
+
+    try {
+      const openRouterModels = await openRouterService.getAvailableModels();
+      return openRouterModels.map(orModel => {
+        const aiModelData = openRouterService.convertToAIModel(orModel);
+        return {
+          id: `openrouter-${orModel.id}`,
+          name: aiModelData.name!,
+          type: aiModelData.type!,
+          provider: 'openrouter',
+          modelId: aiModelData.modelId!,
+          version: undefined,
+          status: 'inactive' as ModelStatus,
+          capabilities: aiModelData.capabilities,
+          configuration: aiModelData.configuration,
+          downloadProgress: 0,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        } as AIModel;
+      });
+    } catch (error) {
+      console.error('Error fetching OpenRouter models:', error);
+      return [];
+    }
   }
 }
