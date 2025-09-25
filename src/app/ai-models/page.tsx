@@ -2,23 +2,63 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Brain, Download, Play, Pause, Settings, CheckCircle, AlertCircle, Clock } from 'lucide-react';
+import { ArrowLeft, Brain, Download, Play, Pause, Settings, CheckCircle, AlertCircle, Clock, RefreshCw } from 'lucide-react';
 import { AIModel, ModelStatus } from '@/types';
 
 export default function AIModelsPage() {
   const [models, setModels] = useState<AIModel[]>([]);
   const [loading, setLoading] = useState(true);
   const [downloadingModels, setDownloadingModels] = useState<Set<string>>(new Set());
+  const [syncingOpenRouter, setSyncingOpenRouter] = useState(false);
+  const [syncMessage, setSyncMessage] = useState<string>('');
 
   useEffect(() => {
     loadModels();
   }, []);
 
+  const syncOpenRouterModels = async () => {
+    setSyncingOpenRouter(true);
+    setSyncMessage('');
+    
+    try {
+      const response = await fetch('/api/ai-models/sync-openrouter', {
+        method: 'POST',
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setSyncMessage(`Successfully synced ${data.data.addedCount} new OpenRouter models!`);
+        // Reload models to show the new ones
+        loadModels();
+      } else {
+        setSyncMessage(`Error: ${data.error}`);
+      }
+    } catch (error) {
+      setSyncMessage(`Error: ${error instanceof Error ? error.message : 'Failed to sync OpenRouter models'}`);
+    } finally {
+      setSyncingOpenRouter(false);
+      // Clear message after 5 seconds
+      setTimeout(() => setSyncMessage(''), 5000);
+    }
+  };
+
   const loadModels = async () => {
     try {
-      // Simulate API call to load models
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      setLoading(true);
       
+      // Load models from API
+      const response = await fetch('/api/ai-models');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setModels(data.data);
+          setLoading(false);
+          return;
+        }
+      }
+      
+      // Fallback to mock data if API fails
       const mockModels: AIModel[] = [
         {
           id: '1',
@@ -216,6 +256,14 @@ export default function AIModelsPage() {
               <h1 className="ml-2 text-xl font-bold text-gray-900">AI Models</h1>
             </div>
             <div className="flex items-center space-x-4">
+              <button
+                onClick={syncOpenRouterModels}
+                disabled={syncingOpenRouter}
+                className="flex items-center space-x-2 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <RefreshCw className={`h-4 w-4 ${syncingOpenRouter ? 'animate-spin' : ''}`} />
+                <span>{syncingOpenRouter ? 'Syncing...' : 'Sync OpenRouter Models'}</span>
+              </button>
               <span className="text-sm text-gray-600">
                 {models.filter(m => m.status === 'active').length} of {models.length} models active
               </span>
@@ -273,6 +321,17 @@ export default function AIModelsPage() {
             </div>
           </div>
         </div>
+
+        {/* Sync Message */}
+        {syncMessage && (
+          <div className={`mb-6 p-4 rounded-md ${
+            syncMessage.includes('Error') 
+              ? 'bg-red-50 text-red-700 border border-red-200' 
+              : 'bg-green-50 text-green-700 border border-green-200'
+          }`}>
+            {syncMessage}
+          </div>
+        )}
 
         {/* Models List */}
         <div className="bg-white shadow rounded-lg overflow-hidden">
@@ -415,6 +474,7 @@ export default function AIModelsPage() {
                 <h4 className="font-medium text-gray-900 mb-2">Providers</h4>
                 <ul className="text-sm text-gray-600 space-y-1">
                   <li><strong>OpenAI:</strong> Cloud-based models with high performance</li>
+                  <li><strong>OpenRouter:</strong> Access to hundreds of AI models through unified API</li>
                   <li><strong>Local:</strong> Downloaded models for offline use</li>
                   <li><strong>Anthropic:</strong> Alternative cloud provider for diverse capabilities</li>
                   <li><strong>Custom:</strong> Specialized models trained for construction industry</li>
