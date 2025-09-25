@@ -62,6 +62,61 @@ export class AIModelManager {
     }
   }
 
+  async getModels(): Promise<AIModelConfig[]> {
+    // Return current active models
+    return Array.from(this.activeModels.values())
+  }
+
+  async getAllModels(): Promise<AIModelConfig[]> {
+    try {
+      const models = await prisma.aIModel.findMany()
+      return models.map((model: {
+        name: string;
+        type: string;
+        provider: string;
+        modelId: string;
+        isActive: boolean;
+        configuration: unknown;
+      }) => ({
+        name: model.name,
+        type: model.type as 'llm' | 'vision' | 'speech',
+        provider: model.provider,
+        modelId: model.modelId,
+        isActive: model.isActive,
+        configuration: model.configuration as Record<string, unknown>
+      }))
+    } catch (error) {
+      console.error('❌ Error fetching all AI models:', error)
+      // Return fallback models if database is not available
+      return [
+        {
+          name: 'GPT-4 Turbo',
+          type: 'llm',
+          provider: 'openai',
+          modelId: 'gpt-4-turbo-preview',
+          isActive: true,
+          configuration: { temperature: 0.7, max_tokens: 2000 }
+        },
+        {
+          name: 'Claude 3 Haiku',
+          type: 'llm',
+          provider: 'anthropic',
+          modelId: 'claude-3-haiku-20240307',
+          isActive: true,
+          configuration: { temperature: 0.5, max_tokens: 1500 }
+        },
+        {
+          name: 'Whisper',
+          type: 'speech',
+          provider: 'openai',
+          modelId: 'whisper-1',
+          isActive: true,
+          configuration: {}
+        }
+      ]
+    }
+  }
+
   async generateResponse(
     prompt: string,
     modelName: string = 'GPT-4 Turbo',
@@ -205,6 +260,91 @@ export class AIModelManager {
       }
     } catch (error) {
       console.error('❌ Error adding AI model:', error)
+      throw error
+    }
+  }
+
+  async initializeModels(): Promise<void> {
+    try {
+      // Load existing models from database
+      await this.loadModels()
+      
+      // If no models exist, create default ones
+      if (this.activeModels.size === 0) {
+        const defaultModels = [
+          {
+            name: 'GPT-4 Turbo',
+            type: 'llm' as const,
+            provider: 'openai',
+            modelId: 'gpt-4-turbo-preview',
+            isActive: true,
+            configuration: { temperature: 0.7, max_tokens: 2000 }
+          },
+          {
+            name: 'Claude 3 Haiku',
+            type: 'llm' as const,
+            provider: 'anthropic',
+            modelId: 'claude-3-haiku-20240307',
+            isActive: true,
+            configuration: { temperature: 0.5, max_tokens: 1500 }
+          },
+          {
+            name: 'Whisper',
+            type: 'speech' as const,
+            provider: 'openai',
+            modelId: 'whisper-1',
+            isActive: true,
+            configuration: {}
+          }
+        ]
+
+        for (const model of defaultModels) {
+          try {
+            await this.addModel(model)
+          } catch (error) {
+            // Model might already exist, just add to active models
+            this.activeModels.set(model.name, model)
+          }
+        }
+      }
+      
+      console.log('✅ AI Models initialized successfully')
+    } catch (error) {
+      console.error('❌ Error initializing AI models:', error)
+    }
+  }
+
+  async loadModel(modelId: string): Promise<boolean> {
+    try {
+      // In a real implementation, this would actually load/initialize the model
+      // For now, we'll just mark it as active if it exists
+      const models = await this.getAllModels()
+      const model = models.find(m => m.modelId === modelId || m.name === modelId)
+      
+      if (model) {
+        this.activeModels.set(model.name, { ...model, isActive: true })
+        return true
+      }
+      return false
+    } catch (error) {
+      console.error('❌ Error loading model:', error)
+      return false
+    }
+  }
+
+  async executeRequest(modelId: string, prompt: string, options?: Record<string, unknown>): Promise<string> {
+    try {
+      // Find model by ID or name
+      const models = await this.getAllModels()
+      const model = models.find(m => m.modelId === modelId || m.name === modelId)
+      
+      if (!model) {
+        throw new Error(`Model ${modelId} not found`)
+      }
+
+      return await this.generateResponse(prompt, model.name, options)
+    } catch (error) {
+      console.error('❌ Error executing request:', error)
       throw error
     }
   }
