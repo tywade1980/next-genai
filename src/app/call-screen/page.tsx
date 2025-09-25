@@ -61,7 +61,7 @@ export default function CallScreenPage() {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [currentCall?.status]);
+  }, [currentCall?.status, currentCall]);
 
   const handleAnswerCall = async () => {
     if (currentCall) {

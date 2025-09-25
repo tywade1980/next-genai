@@ -1,14 +1,41 @@
-# Construction AI - Business Management Solution
+# Construction AI - Complete Business Management Solution
 
-Smart call screen and receptionist dialer, 3 AI models, AI image generation, and CBMS (construction business management solution).
+Smart call screen and receptionist dialer, 3 AI models, AI image generation, and comprehensive construction business management solution (CBMS).
 
 ## Features
 
-### AI Image Generation for Construction
-This application provides AI-powered image generation and modification specifically for construction-themed content with endless variety of ideas and styles.
+### 🏗️ Construction Business Management
+- **Project Management**: Complete project lifecycle tracking with budgets, timelines, tasks, and client relationships
+- **Client Management**: Full client directory with contact information, project history, and communication tracking  
+- **Call Center Management**: AI-powered call screening with automatic transcription, sentiment analysis, and priority assignment
+- **Market Intelligence**: Integration for construction market data, labor rates, and material costs
 
-### Business Management
-Comprehensive construction business management solution with smart call screening, AI-powered assistance, and integrated project management.
+### 🤖 AI Integration
+- **Multi-Model Support**: GPT-4, Claude, and Whisper AI models
+- **Smart Call Analysis**: Automatic sentiment detection and priority assignment
+- **Real-time Model Testing**: Interactive testing with construction-specific prompts
+- **Configurable Parameters**: Adjustable model settings and status monitoring
+
+### 🎨 AI Image Generation
+- **Construction-Themed Images**: Generate endless variety of construction-themed content
+- **DALL-E 3 Integration**: High-quality AI image generation for proposals and marketing
+- **Image Modification**: Built-in tools for brightness, contrast, and style adjustments
+- **Batch Generation**: Create multiple variations with different styles and perspectives
+
+### 📱 Complete User Interface
+- **Professional Dashboard**: Comprehensive business metrics and real-time activity monitoring
+- **Responsive Design**: Mobile-friendly interface built with Tailwind CSS
+- **Interactive Components**: Modern UI with proper loading states and error handling
+- **Intuitive Navigation**: Easy access to all major features and workflows
+
+## Technical Stack
+
+- **Next.js 15** with App Router and TypeScript
+- **AI Integration**: OpenAI API for GPT-4 and DALL-E 3
+- **Database**: Prisma with SQLite for data management
+- **UI Framework**: Tailwind CSS with Radix UI components
+- **State Management**: Zustand for client-side state
+- **Image Processing**: Built-in modification and optimization tools
 
 ## Getting Started
 
