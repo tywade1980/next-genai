@@ -5,8 +5,8 @@ Always reference these instructions first and fallback to search or bash command
 ## Working Effectively
 
 ### Bootstrap and Dependencies
-- Install dependencies: `npm install` -- takes ~24 seconds. NEVER CANCEL. Set timeout to 60+ minutes.
-- Dependencies are current and working. npm audit shows 6 moderate vulnerabilities but these don't affect functionality.
+- Install dependencies: `npm install` -- takes ~31 seconds. NEVER CANCEL. Set timeout to 60+ minutes.
+- Dependencies are current and working. npm audit shows 4 moderate vulnerabilities but these don't affect functionality.
 - Node.js v20.19.5 and npm 10.8.2 are working versions.
 
 ### Database Setup
@@ -17,9 +17,9 @@ Always reference these instructions first and fallback to search or bash command
 - Database tables: ai_models, building_codes, call_logs, clients, labor_rates, market_data, projects, tasks
 
 ### Build and Lint
-- Lint code: `npm run lint` -- takes ~2 seconds. Currently shows 7 warnings (unused variables, missing deps) but no errors.
+- Lint code: `npm run lint` -- takes ~2 seconds. Linting passes cleanly with no errors or warnings.
 - Build application: `npm run build` -- takes ~18 seconds with Turbopack. NEVER CANCEL. Set timeout to 60+ minutes.
-- Linting passes with warnings. Build succeeds every time.
+- Linting passes without issues. Build succeeds every time.
 
 ### Development Server
 - Start development: `npm run dev` -- starts in ~1 second using Turbopack

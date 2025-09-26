@@ -301,7 +301,7 @@ export class AIModelManager {
         for (const model of defaultModels) {
           try {
             await this.addModel(model)
-          } catch (error) {
+          } catch {
             // Model might already exist, just add to active models
             this.activeModels.set(model.name, model)
           }
