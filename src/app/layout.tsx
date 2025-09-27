@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Construction AI - Business Management Solution",
-  description: "Smart call screening, AI models, AI image generation, and comprehensive construction business management",
+  title: "Next GenAI - Construction Business Management",
+  description: "Smart call screen and receptionist dialer with 3 AI models and construction business management solution",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
+      <body className="antialiased font-sans">
         {children}
       </body>
     </html>
